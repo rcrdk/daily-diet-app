@@ -22,7 +22,7 @@ export const Container = styled(View)<StatsStyleProps>`
 export const BackButton = styled.TouchableOpacity`
   position: absolute;
   top: 0;
-  left: ${({ theme }) => theme.SPACE.X};
+  left: ${({ theme }) => theme.SPACE.X}px;
 `
 
 export const BackIcon = styled(ArrowLeft).attrs<StatsStyleProps>(

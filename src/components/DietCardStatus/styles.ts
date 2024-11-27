@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'phosphor-react-native'
 import styled, { css } from 'styled-components/native'
 
 type DietCardStyleProps = {
-  isOnDiet: boolean
+  isOnDiet?: boolean
 }
 
 export const Container = styled.TouchableOpacity<DietCardStyleProps>`

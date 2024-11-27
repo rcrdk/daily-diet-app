@@ -10,6 +10,9 @@ import { Label } from '@components/Label'
 import { Input } from '@components/Input'
 import { InputGroup } from '@components/InputGroup'
 import { DietSwitcher } from '@components/DietSwitcher'
+import { createMeal } from '@storage/meals/createMeal'
+import { AppError } from '@utils/app-error'
+import { Alert } from 'react-native'
 
 export function Create() {
   const [name, setName] = useState('')
@@ -24,10 +27,22 @@ export function Create() {
     setOnDiet(option)
   }
 
-  function handleCreateNewMeal() {
-    if (isOnDiet === undefined) return
+  async function handleCreateNewMeal() {
+    try {
+      await createMeal({ name, description, date, hour, onDiet: isOnDiet })
 
-    navigation.navigate('created', { isOnDiet: String(isOnDiet) })
+      navigation.navigate('created', { isOnDiet: String(isOnDiet) })
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Nova refeição', error.message)
+      } else {
+        Alert.alert(
+          'Nova refeição',
+          'Não foi possível adicionar uma nova refeição. Tente novamente mais tarde.',
+        )
+        console.error(error)
+      }
+    }
   }
 
   return (

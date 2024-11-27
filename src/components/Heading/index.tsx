@@ -11,7 +11,7 @@ export function Heading({ title, onBackNavigation }: Props) {
   const navigation = useNavigation()
 
   function handleBackNavigationFallback() {
-    navigation.navigate('meals')
+    navigation.goBack()
   }
 
   return (

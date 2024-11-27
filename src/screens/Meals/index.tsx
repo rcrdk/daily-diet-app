@@ -1,73 +1,18 @@
 import { Container, ListHeader, Title } from './styles'
 import { Header } from '@components/Header'
 import { DietCardStatus } from '@components/DietCardStatus'
-import { SectionList } from 'react-native'
-import { useState } from 'react'
+import { Alert, SectionList } from 'react-native'
+import { useCallback, useState } from 'react'
 import { MealsGroupedDTO } from '@dtos/MealDTO'
 import { MealItem } from '@components/MealItem'
 import { Button } from '@components/Button'
 import { useTheme } from 'styled-components/native'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ListEmpty } from '@components/ListEmpty'
+import { getMealsGrouped } from '@storage/meals/getMealsGrouped'
 
 export function Meals() {
-  const [meals, setMeals] = useState<MealsGroupedDTO[]>([
-    {
-      title: '06.11.2025',
-      data: [
-        {
-          id: '1',
-          name: 'Sopa',
-          description: 'Some description',
-          date: '06/11/2025',
-          hour: '19:00',
-          onDiet: true,
-        },
-        {
-          id: '2',
-          name: 'Pizza',
-          description: 'Some description',
-          date: '06/11/2025',
-          hour: '12:00',
-          onDiet: false,
-        },
-        {
-          id: '3',
-          name: 'Hamburguer',
-          description: 'Some description',
-          date: '06/11/2025',
-          hour: '11:00',
-          onDiet: false,
-        },
-      ],
-    },
-    {
-      title: '05.11.2025',
-      data: [
-        {
-          id: '4',
-          name: 'Some oversized text to truncate but needs more words to do so',
-          description: 'Some description',
-          date: '06/11/2025',
-          hour: '19:00',
-          onDiet: true,
-        },
-      ],
-    },
-    {
-      title: '04.11.2025',
-      data: [
-        {
-          id: '5',
-          name: 'Sopa',
-          description: 'Some description',
-          date: '06/11/2025',
-          hour: '19:00',
-          onDiet: true,
-        },
-      ],
-    },
-  ])
+  const [meals, setMeals] = useState<MealsGroupedDTO[]>([])
 
   const { SPACE } = useTheme()
   const navigation = useNavigation()
@@ -79,6 +24,29 @@ export function Meals() {
   function handleShowMealDetails(id: string) {
     navigation.navigate('details', { id })
   }
+
+  async function fetchMeals() {
+    // setIsLoading(true)
+
+    try {
+      const data = await getMealsGrouped()
+      setMeals(data)
+    } catch (error) {
+      console.error(error)
+      Alert.alert(
+        'Ocorreu um erro',
+        'Houve um erro ao tentar carregar as refeições. Tente novamente mais tarde.',
+      )
+    } finally {
+      // setIsLoading(false)
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeals()
+    }, []),
+  )
 
   return (
     <Container edges={['top', 'left', 'right']}>
@@ -108,7 +76,7 @@ export function Meals() {
           />
         )}
         renderSectionHeader={({ section }) => (
-          <ListHeader>{section.title}</ListHeader>
+          <ListHeader>{section.title.replaceAll('/', '.')}</ListHeader>
         )}
         stickySectionHeadersEnabled={false}
         showsVerticalScrollIndicator={false}

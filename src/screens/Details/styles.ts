@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/native'
 
 type DetailsStyleProps = {
-  isOnDiet: boolean
+  isOnDiet?: boolean
 }
 
 export const Container = styled.View<DetailsStyleProps>`
@@ -15,7 +15,7 @@ export const Title = styled.Text`
     font-family: ${theme.FONT_FAMILY.BOLD};
     font-size: ${theme.FONT_SIZE.xl};
     color: ${theme.COLORS.GRAY_1};
-    margin-bottom: ${theme.SPACE.Y_ITEM};
+    margin-bottom: ${theme.SPACE.Y_ITEM}px;
   `}
 `
 
@@ -24,7 +24,7 @@ export const Text = styled.Text`
     font-family: ${theme.FONT_FAMILY.REGULAR};
     font-size: ${theme.FONT_SIZE.md};
     color: ${theme.COLORS.GRAY_1};
-    margin-bottom: ${theme.SPACE.Y_GROUP};
+    margin-bottom: ${theme.SPACE.Y_GROUP}px;
   `}
 `
 

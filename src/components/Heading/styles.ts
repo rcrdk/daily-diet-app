@@ -23,7 +23,7 @@ export const Title = styled.Text`
 export const BackButton = styled.TouchableOpacity`
   position: absolute;
   top: 0;
-  left: ${({ theme }) => theme.SPACE.X};
+  left: ${({ theme }) => theme.SPACE.X}px;
   bottom: 0;
   align-items: center;
   justify-content: center;

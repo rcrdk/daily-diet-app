@@ -8,11 +8,11 @@ export const Container = styled(View)`
 
 export const DateHourRow = styled(View)`
   flex-direction: row;
-  gap: ${({ theme }) => theme.SPACE.X};
+  gap: ${({ theme }) => theme.SPACE.X}px;
 `
 
 export const DietOptionsRow = styled(View)`
   padding-top: 5px;
   flex-direction: row;
-  gap: ${({ theme }) => theme.SPACE.Y_ITEM};
+  gap: ${({ theme }) => theme.SPACE.Y_ITEM}px;
 `

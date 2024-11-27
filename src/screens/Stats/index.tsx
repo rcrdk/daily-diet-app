@@ -10,26 +10,53 @@ import {
 } from './styles'
 
 import { Percentage } from '@components/DietCardStatus/styles'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { StatCard } from '@components/StatCard'
 import { Content } from '@components/Content'
 import { ContentScrollable } from '@components/ContentScrollable'
+import { Alert } from 'react-native'
+import { useCallback, useState } from 'react'
+import { StatsDTO } from '@dtos/StatsDTO'
+import { getStats } from '@storage/meals/getStats'
 
 export function Stats() {
+  const [stats, setStats] = useState<StatsDTO>()
+
   const navigation = useNavigation()
 
   function handleNavigation() {
-    navigation.navigate('meals')
+    navigation.goBack()
   }
 
+  async function fetchStats() {
+    try {
+      const data = await getStats()
+      setStats(data)
+    } catch (error) {
+      Alert.alert(
+        'Estatísticas',
+        'Não foi possível carregar as informações. Tente novamente mas tarde.',
+      )
+      console.error(error)
+      navigation.goBack()
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchStats()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  )
+
   return (
-    <Container isOnDiet={false}>
+    <Container isOnDiet={stats?.isOnDiet}>
       <SafeAreaView edges={['top']}>
         <Heading>
           <BackButton onPress={handleNavigation}>
-            <BackIcon isOnDiet={false} />
+            <BackIcon isOnDiet={stats?.isOnDiet} />
           </BackButton>
-          <Percentage>99,99%</Percentage>
+          <Percentage>{stats?.average ?? '0%'}</Percentage>
           <PercentageText>das refeições dentro da dieta</PercentageText>
         </Heading>
       </SafeAreaView>
@@ -39,19 +66,22 @@ export function Stats() {
           <Title>Estatísticas gerais</Title>
 
           <StatCard
-            number="22"
+            number={stats?.bestSequence ?? 0}
             text="melhor sequência de pratos dentro da dieta"
           />
-          <StatCard number="109" text="refeições registradas" />
+          <StatCard
+            number={stats?.mealsCount ?? 0}
+            text="refeições registradas"
+          />
 
           <StatsGrid>
             <StatCard
-              number="99"
+              number={stats?.onDietCount ?? 0}
               text="refeições dentro da dieta"
               themeColor="green"
             />
             <StatCard
-              number="10"
+              number={stats?.offDietCount ?? 0}
               text="refeições fora da dieta"
               themeColor="red"
             />

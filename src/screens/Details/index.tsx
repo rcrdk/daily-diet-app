@@ -2,28 +2,27 @@ import { Heading } from '@components/Heading'
 import { ActionButtons, Container, Text, Title } from './styles'
 import { Content } from '@components/Content'
 import { ContentScrollable } from '@components/ContentScrollable'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 import { Button } from '@components/Button'
 import { Label } from '@components/Label'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { MealDTO } from '@dtos/MealDTO'
 import { Badge } from '@components/Badge'
 import { Alert } from 'react-native'
+import { getMeal } from '@storage/meals/getMeal'
+import { AppError } from '@utils/app-error'
+import { removeMeal } from '@storage/meals/removeMeal'
 
 type RouteParams = {
   id: string
 }
 
 export function Details() {
-  const [meal, setMeal] = useState<MealDTO>({
-    id: 'id',
-    name: 'Sanduíche',
-    description:
-      'Sanduíche de pão integral com atum e salada de alface e tomate',
-    date: '22/10/2024',
-    hour: '12:00',
-    onDiet: true,
-  })
+  const [meal, setMeal] = useState<MealDTO>()
 
   const navigation = useNavigation()
 
@@ -36,8 +35,16 @@ export function Details() {
 
   async function onRemoveMeal() {
     try {
+      await removeMeal(id)
+
       navigation.navigate('meals')
-    } catch (error) {}
+    } catch (error) {
+      Alert.alert(
+        'Refeição',
+        'Não foi possível remover refeição. Tente novamente mas tarde.',
+      )
+      console.error(error)
+    }
   }
 
   function handleRemoveMealNavigation() {
@@ -58,21 +65,46 @@ export function Details() {
     )
   }
 
+  async function fetchMeal() {
+    try {
+      const data = await getMeal(id)
+      setMeal(data)
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Refeição', error.message)
+      } else {
+        Alert.alert(
+          'Refeição',
+          'Não foi possível ver os detalhes da refeição. Tente novamente mas tarde.',
+        )
+        console.error(error)
+      }
+      navigation.goBack()
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeal()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  )
+
   return (
-    <Container isOnDiet={meal.onDiet}>
+    <Container isOnDiet={meal?.onDiet}>
       <Heading title="Refeição" />
 
       <Content>
         <ContentScrollable>
-          <Title>{meal.name}</Title>
-          <Text>{meal.description}</Text>
+          <Title>{meal?.name}</Title>
+          <Text>{meal?.description}</Text>
 
           <Label>Data e hora:</Label>
           <Text>
-            {meal.date} às {meal.hour}h
+            {meal?.date} às {meal?.hour}h
           </Text>
 
-          {meal.onDiet ? (
+          {meal?.onDiet ? (
             <Badge label="dentro da dieta" color="green" />
           ) : (
             <Badge label="fora da dieta" color="red" />

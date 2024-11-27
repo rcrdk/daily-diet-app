@@ -1,8 +1,12 @@
 import { Container, DateHourRow, DietOptionsRow } from './styles'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/Button'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { useState } from 'react'
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
+import { useCallback, useState } from 'react'
 import { Content } from '@components/Content'
 
 import { ContentScrollable } from '@components/ContentScrollable'
@@ -10,6 +14,10 @@ import { Label } from '@components/Label'
 import { Input } from '@components/Input'
 import { InputGroup } from '@components/InputGroup'
 import { DietSwitcher } from '@components/DietSwitcher'
+import { getMeal } from '@storage/meals/getMeal'
+import { AppError } from '@utils/app-error'
+import { Alert } from 'react-native'
+import { editMeal } from '@storage/meals/editMeal'
 
 type RouteParams = {
   id: string
@@ -30,9 +38,53 @@ export function Edit() {
     setOnDiet(option)
   }
 
-  function handleEditMeal() {
-    navigation.navigate('details', { id })
+  async function handleEditMeal() {
+    try {
+      await editMeal({ id, name, description, date, hour, onDiet: isOnDiet })
+
+      navigation.navigate('meals')
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Editar refeição', error.message)
+      } else {
+        Alert.alert(
+          'Editar refeição',
+          'Não foi possível editar a refeição. Tente novamente mais tarde.',
+        )
+        console.error(error)
+      }
+    }
   }
+
+  async function fetchMeal() {
+    try {
+      const data = await getMeal(id)
+
+      setName(data.name)
+      setDescription(data.description)
+      setDate(data.date)
+      setHour(data.hour)
+      setOnDiet(data.onDiet)
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Editar refeição', error.message)
+      } else {
+        Alert.alert(
+          'Editar refeição',
+          'Não foi possível editar a refeição. Tente novamente mas tarde.',
+        )
+        console.error(error)
+      }
+      navigation.goBack()
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchMeal()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []),
+  )
 
   return (
     <Container>
