@@ -1,7 +1,7 @@
 import { Container, DateHourRow, DietOptionsRow } from './styles'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/Button'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useState } from 'react'
 import { Content } from '@components/Content'
 
@@ -11,32 +11,32 @@ import { Input } from '@components/Input'
 import { InputGroup } from '@components/InputGroup'
 import { DietSwitcher } from '@components/DietSwitcher'
 
-export function NewMeal() {
-  const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
-  const [date, setDate] = useState('')
-  const [hour, setHour] = useState('')
-  const [isOnDiet, setOnDiet] = useState<boolean>()
+type RouteParams = {
+  id: string
+}
+
+export function Edit() {
+  const [name, setName] = useState('Sanduiche')
+  const [description, setDescription] = useState('Lorem ipsum dolor sit amet')
+  const [date, setDate] = useState('00/00/0000')
+  const [hour, setHour] = useState('00:00')
+  const [isOnDiet, setOnDiet] = useState<boolean>(false)
 
   const navigation = useNavigation()
+  const { params } = useRoute()
+  const { id } = params as RouteParams
 
   function handleChangeIsOnDiet(option: boolean) {
     setOnDiet(option)
   }
 
-  function handleBackNavigation() {
-    navigation.navigate('meals')
-  }
-
-  function handleCreateNewMeal() {
-    if (isOnDiet === undefined) return
-
-    navigation.navigate('created', { isOnDiet: String(isOnDiet) })
+  function handleEditMeal() {
+    navigation.navigate('details', { id })
   }
 
   return (
     <Container>
-      <Heading title="Nova refeição" onBackNavigation={handleBackNavigation} />
+      <Heading title="Editar refeição" />
 
       <Content>
         <ContentScrollable>
@@ -87,7 +87,7 @@ export function NewMeal() {
           </InputGroup>
         </ContentScrollable>
 
-        <Button label="Cadastrar refeição" onPress={handleCreateNewMeal} />
+        <Button label="Salvar alterações" onPress={handleEditMeal} />
       </Content>
     </Container>
   )

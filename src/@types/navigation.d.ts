@@ -3,13 +3,16 @@ export declare global {
     interface RootParamList {
       meals: undefined
       stats: undefined
-      new: undefined
+      create: undefined
       created: {
         isOnDiet: string
       }
-      // meal: {
-      //   group: string
-      // }
+      details: {
+        id: string
+      }
+      edit: {
+        id: string
+      }
     }
   }
 }

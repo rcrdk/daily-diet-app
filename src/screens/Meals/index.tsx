@@ -8,6 +8,7 @@ import { MealItem } from '@components/MealItem'
 import { Button } from '@components/Button'
 import { useTheme } from 'styled-components/native'
 import { useNavigation } from '@react-navigation/native'
+import { ListEmpty } from '@components/ListEmpty'
 
 export function Meals() {
   const [meals, setMeals] = useState<MealsGroupedDTO[]>([
@@ -71,23 +72,41 @@ export function Meals() {
   const { SPACE } = useTheme()
   const navigation = useNavigation()
 
-  function handleNewMeal() {
-    navigation.navigate('new')
+  function handleCreateNewMeal() {
+    navigation.navigate('create')
+  }
+
+  function handleShowMealDetails(id: string) {
+    navigation.navigate('details', { id })
   }
 
   return (
     <Container edges={['top', 'left', 'right']}>
       <Header />
 
-      <DietCardStatus />
+      {meals.length > 0 && (
+        <>
+          <DietCardStatus />
 
-      <Title>Refeições</Title>
-      <Button label="Nova refeição" icon="plus" onPress={handleNewMeal} />
+          <Title>Refeições</Title>
+          <Button
+            label="Nova refeição"
+            icon="plus"
+            onPress={handleCreateNewMeal}
+          />
+        </>
+      )}
 
       <SectionList
         sections={meals}
         keyExtractor={meal => meal.id}
-        renderItem={({ item }) => <MealItem meal={item} key={item.id} />}
+        renderItem={({ item }) => (
+          <MealItem
+            meal={item}
+            onPress={() => handleShowMealDetails(item.id)}
+            key={item.id}
+          />
+        )}
         renderSectionHeader={({ section }) => (
           <ListHeader>{section.title}</ListHeader>
         )}
@@ -96,8 +115,9 @@ export function Meals() {
         contentContainerStyle={{
           paddingTop: SPACE.Y_ITEM,
           paddingBottom: SPACE.Y_OVERFLOW,
+          flex: meals.length === 0 ? 1 : 0,
         }}
-        // ListEmptyComponent={}
+        ListEmptyComponent={() => <ListEmpty />}
       />
     </Container>
   )
