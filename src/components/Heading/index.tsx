@@ -1,24 +1,20 @@
-import { useNavigation } from '@react-navigation/native'
 import { BackButton, BackIcon, Container, Title } from './styles'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 type Props = {
   title: string
-  backTo: keyof ReactNavigation.RootParamList
+  onBackNavigation: () => void
 }
 
-export function Heading({ title, backTo }: Props) {
-  const navigation = useNavigation()
-
-  function handleNavigation() {
-    navigation.navigate(backTo)
-  }
-
+export function Heading({ title, onBackNavigation }: Props) {
   return (
-    <Container>
-      <BackButton onPress={handleNavigation}>
-        <BackIcon />
-      </BackButton>
-      <Title>{title}</Title>
-    </Container>
+    <SafeAreaView edges={['top', 'left', 'right']}>
+      <Container>
+        <BackButton onPress={onBackNavigation}>
+          <BackIcon />
+        </BackButton>
+        <Title>{title}</Title>
+      </Container>
+    </SafeAreaView>
   )
 }

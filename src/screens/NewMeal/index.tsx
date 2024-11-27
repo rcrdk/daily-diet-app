@@ -1,13 +1,14 @@
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Container, Content } from './styles'
+import { Container } from './styles'
 import { Heading } from '@components/Heading'
 import { Button } from '@components/Button'
-import { ScrollView, Text } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
+import { Content } from '@components/Content'
+
+import { ContentScrollable } from '@components/ContentScrollable'
 
 export function NewMeal() {
-  const [onDiet, setOnDiet] = useState('true')
+  const [isOnDiet, setOnDiet] = useState<'true' | 'false'>()
 
   const navigation = useNavigation()
 
@@ -15,20 +16,22 @@ export function NewMeal() {
     setOnDiet(prev => (prev === 'true' ? 'false' : 'true'))
   }
 
+  function handleBackNavigation() {
+    navigation.navigate('meals')
+  }
+
   function handleCreateNewMeal() {
-    navigation.navigate('created', { onDiet: onDiet })
+    if (!isOnDiet) return
+
+    navigation.navigate('created', { isOnDiet })
   }
 
   return (
     <Container>
-      <SafeAreaView edges={['top', 'left', 'right']}>
-        <Heading title="Nova refeição" backTo="meals" />
-      </SafeAreaView>
+      <Heading title="Nova refeição" onBackNavigation={handleBackNavigation} />
 
-      <Content edges={['bottom', 'left', 'right']}>
-        <ScrollView>
-          <Text onPress={handleChangeOnDiet}>{onDiet}</Text>
-        </ScrollView>
+      <Content>
+        <ContentScrollable></ContentScrollable>
 
         <Button label="Cadastrar refeição" onPress={handleCreateNewMeal} />
       </Content>

@@ -5,7 +5,7 @@ export declare global {
       stats: undefined
       new: undefined
       created: {
-        onDiet: string
+        isOnDiet: string
       }
       // meal: {
       //   group: string

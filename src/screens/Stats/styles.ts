@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styled, { css } from 'styled-components/native'
 
-export type StatsStyleProps = {
+type StatsStyleProps = {
   isOnDiet?: boolean
 }
 

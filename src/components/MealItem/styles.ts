@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
-export type MealItemStyleProps = {
+type MealItemStyleProps = {
   isOnDiet: boolean
 }
 

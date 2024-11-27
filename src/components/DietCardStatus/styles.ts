@@ -1,7 +1,7 @@
 import { ArrowUpRight } from 'phosphor-react-native'
 import styled, { css } from 'styled-components/native'
 
-export type DietCardStyleProps = {
+type DietCardStyleProps = {
   isOnDiet: boolean
 }
 

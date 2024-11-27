@@ -6,14 +6,14 @@ import onDietImage from '@assets/in.png'
 import outDietImage from '@assets/not.png'
 
 type RouteParams = {
-  onDiet: 'true' | 'false'
+  isOnDiet: 'true' | 'false'
 }
 
 export function NewMealMessage() {
   const router = useRoute()
   const navigation = useNavigation()
 
-  const { onDiet } = router.params as RouteParams
+  const { isOnDiet } = router.params as RouteParams
 
   function handleNavigation() {
     navigation.navigate('meals')
@@ -21,7 +21,7 @@ export function NewMealMessage() {
 
   return (
     <Container>
-      {onDiet === 'true' && (
+      {isOnDiet === 'true' && (
         <>
           <Title isOnDiet>Continue assim!</Title>
           <Text>
@@ -31,7 +31,7 @@ export function NewMealMessage() {
         </>
       )}
 
-      {onDiet === 'false' && (
+      {isOnDiet === 'false' && (
         <>
           <Title>Que pena!</Title>
           <Text>

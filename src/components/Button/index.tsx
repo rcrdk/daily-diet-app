@@ -1,17 +1,18 @@
 import { TouchableOpacityProps } from 'react-native'
-import { Container, Icon, Text } from './styles'
+import { ButtonStyleMode, Container, Icon, Text } from './styles'
 import { Feather } from '@expo/vector-icons'
 
 type Props = TouchableOpacityProps & {
   label: string
+  mode?: ButtonStyleMode
   icon?: keyof typeof Feather.glyphMap
 }
 
-export function Button({ icon, label, ...props }: Props) {
+export function Button({ icon, label, mode = 'filled', ...props }: Props) {
   return (
-    <Container {...props}>
-      {icon && <Icon name={icon} />}
-      <Text>{label}</Text>
+    <Container mode={mode} {...props}>
+      {icon && <Icon mode={mode} name={icon} />}
+      <Text mode={mode}>{label}</Text>
     </Container>
   )
 }

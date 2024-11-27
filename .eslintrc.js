@@ -5,5 +5,6 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': 'error',
+    'object-shorthand': ['error', 'always'],
   },
 }
