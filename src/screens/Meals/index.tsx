@@ -10,8 +10,10 @@ import { useTheme } from 'styled-components/native'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { ListEmpty } from '@components/ListEmpty'
 import { getMealsGrouped } from '@storage/meals/getMealsGrouped'
+import { Loading } from '@components/Loading'
 
 export function Meals() {
+  const [isLoading, setIsLoading] = useState(true)
   const [meals, setMeals] = useState<MealsGroupedDTO[]>([])
 
   const { SPACE } = useTheme()
@@ -26,7 +28,7 @@ export function Meals() {
   }
 
   async function fetchMeals() {
-    // setIsLoading(true)
+    setIsLoading(true)
 
     try {
       const data = await getMealsGrouped()
@@ -38,7 +40,7 @@ export function Meals() {
         'Houve um erro ao tentar carregar as refeições. Tente novamente mais tarde.',
       )
     } finally {
-      // setIsLoading(false)
+      setIsLoading(false)
     }
   }
 
@@ -47,6 +49,10 @@ export function Meals() {
       fetchMeals()
     }, []),
   )
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <Container edges={['top', 'left', 'right']}>

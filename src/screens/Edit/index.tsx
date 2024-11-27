@@ -18,12 +18,14 @@ import { getMeal } from '@storage/meals/getMeal'
 import { AppError } from '@utils/app-error'
 import { Alert } from 'react-native'
 import { editMeal } from '@storage/meals/editMeal'
+import { Loading } from '@components/Loading'
 
 type RouteParams = {
   id: string
 }
 
 export function Edit() {
+  const [isLoading, setIsLoading] = useState(true)
   const [name, setName] = useState('Sanduiche')
   const [description, setDescription] = useState('Lorem ipsum dolor sit amet')
   const [date, setDate] = useState('00/00/0000')
@@ -58,6 +60,7 @@ export function Edit() {
 
   async function fetchMeal() {
     try {
+      setIsLoading(true)
       const data = await getMeal(id)
 
       setName(data.name)
@@ -76,6 +79,8 @@ export function Edit() {
         console.error(error)
       }
       navigation.goBack()
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -91,55 +96,65 @@ export function Edit() {
       <Heading title="Editar refeição" />
 
       <Content>
-        <ContentScrollable>
-          <InputGroup>
-            <Label>Nome:</Label>
-            <Input value={name} onChangeText={setName} enterKeyHint="next" />
-          </InputGroup>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <ContentScrollable>
+              <InputGroup>
+                <Label>Nome:</Label>
+                <Input
+                  value={name}
+                  onChangeText={setName}
+                  enterKeyHint="next"
+                />
+              </InputGroup>
 
-          <InputGroup>
-            <Label>Descrição:</Label>
-            <Input
-              value={description}
-              onChangeText={setDescription}
-              multiline
-              textAlignVertical="top"
-              numberOfLines={3}
-            />
-          </InputGroup>
+              <InputGroup>
+                <Label>Descrição:</Label>
+                <Input
+                  value={description}
+                  onChangeText={setDescription}
+                  multiline
+                  textAlignVertical="top"
+                  numberOfLines={3}
+                />
+              </InputGroup>
 
-          <DateHourRow>
-            <InputGroup style={{ flexGrow: 1 }}>
-              <Label>Data:</Label>
-              <Input value={date} onChangeText={setDate} />
-            </InputGroup>
+              <DateHourRow>
+                <InputGroup style={{ flexGrow: 1 }}>
+                  <Label>Data:</Label>
+                  <Input value={date} onChangeText={setDate} />
+                </InputGroup>
 
-            <InputGroup style={{ flexGrow: 1 }}>
-              <Label>Hora:</Label>
-              <Input value={hour} onChangeText={setHour} />
-            </InputGroup>
-          </DateHourRow>
+                <InputGroup style={{ flexGrow: 1 }}>
+                  <Label>Hora:</Label>
+                  <Input value={hour} onChangeText={setHour} />
+                </InputGroup>
+              </DateHourRow>
 
-          <InputGroup style={{ flexGrow: 1 }}>
-            <Label>Está dentro da dieta?</Label>
-            <DietOptionsRow>
-              <DietSwitcher
-                label="Sim"
-                color="green"
-                isActive={isOnDiet}
-                onSelectOption={() => handleChangeIsOnDiet(true)}
-              />
-              <DietSwitcher
-                label="Não"
-                color="red"
-                isActive={isOnDiet}
-                onSelectOption={() => handleChangeIsOnDiet(false)}
-              />
-            </DietOptionsRow>
-          </InputGroup>
-        </ContentScrollable>
+              <InputGroup style={{ flexGrow: 1 }}>
+                <Label>Está dentro da dieta?</Label>
+                <DietOptionsRow>
+                  <DietSwitcher
+                    label="Sim"
+                    color="green"
+                    isActive={isOnDiet}
+                    onSelectOption={() => handleChangeIsOnDiet(true)}
+                  />
+                  <DietSwitcher
+                    label="Não"
+                    color="red"
+                    isActive={isOnDiet}
+                    onSelectOption={() => handleChangeIsOnDiet(false)}
+                  />
+                </DietOptionsRow>
+              </InputGroup>
+            </ContentScrollable>
 
-        <Button label="Salvar alterações" onPress={handleEditMeal} />
+            <Button label="Salvar alterações" onPress={handleEditMeal} />
+          </>
+        )}
       </Content>
     </Container>
   )

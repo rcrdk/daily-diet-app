@@ -16,12 +16,14 @@ import { Alert } from 'react-native'
 import { getMeal } from '@storage/meals/getMeal'
 import { AppError } from '@utils/app-error'
 import { removeMeal } from '@storage/meals/removeMeal'
+import { Loading } from '@components/Loading'
 
 type RouteParams = {
   id: string
 }
 
 export function Details() {
+  const [isLoading, setIsLoading] = useState(true)
   const [meal, setMeal] = useState<MealDTO>()
 
   const navigation = useNavigation()
@@ -67,6 +69,7 @@ export function Details() {
 
   async function fetchMeal() {
     try {
+      setIsLoading(true)
       const data = await getMeal(id)
       setMeal(data)
     } catch (error) {
@@ -80,6 +83,8 @@ export function Details() {
         console.error(error)
       }
       navigation.goBack()
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -95,36 +100,42 @@ export function Details() {
       <Heading title="Refeição" />
 
       <Content>
-        <ContentScrollable>
-          <Title>{meal?.name}</Title>
-          <Text>{meal?.description}</Text>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <ContentScrollable>
+              <Title>{meal?.name}</Title>
+              <Text>{meal?.description}</Text>
 
-          <Label>Data e hora:</Label>
-          <Text>
-            {meal?.date} às {meal?.hour}h
-          </Text>
+              <Label>Data e hora:</Label>
+              <Text>
+                {meal?.date} às {meal?.hour}h
+              </Text>
 
-          {meal?.onDiet ? (
-            <Badge label="dentro da dieta" color="green" />
-          ) : (
-            <Badge label="fora da dieta" color="red" />
-          )}
-        </ContentScrollable>
+              {meal?.onDiet ? (
+                <Badge label="dentro da dieta" color="green" />
+              ) : (
+                <Badge label="fora da dieta" color="red" />
+              )}
+            </ContentScrollable>
 
-        <ActionButtons>
-          <Button
-            label="Editar refeição"
-            icon="edit-3"
-            onPress={handleEditMealNavigation}
-          />
+            <ActionButtons>
+              <Button
+                label="Editar refeição"
+                icon="edit-3"
+                onPress={handleEditMealNavigation}
+              />
 
-          <Button
-            label="Remover refeição"
-            icon="trash-2"
-            mode="outline"
-            onPress={handleRemoveMealNavigation}
-          />
-        </ActionButtons>
+              <Button
+                label="Remover refeição"
+                icon="trash-2"
+                mode="outline"
+                onPress={handleRemoveMealNavigation}
+              />
+            </ActionButtons>
+          </>
+        )}
       </Content>
     </Container>
   )
