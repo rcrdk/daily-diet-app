@@ -1,6 +1,5 @@
 import { ArrowLeft } from 'phosphor-react-native'
 import { View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import styled, { css } from 'styled-components/native'
 
 type StatsStyleProps = {
@@ -50,25 +49,12 @@ export const Percentage = styled.Text`
   `}
 `
 
-export const Text = styled.Text`
+export const PercentageText = styled.Text`
   margin-top: 4px;
 
   ${({ theme }) => css`
     font-family: ${theme.FONT_FAMILY.REGULAR};
     font-size: ${theme.FONT_SIZE.sm};
-  `}
-`
-
-export const Content = styled(SafeAreaView)`
-  flex: 1;
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
-
-  ${({ theme }) => css`
-    padding-top: ${theme.SPACE.Y_BLOCK}px;
-    padding-left: ${theme.SPACE.X}px;
-    padding-right: ${theme.SPACE.X}px;
-    background-color: ${theme.COLORS.WHITE};
   `}
 `
 

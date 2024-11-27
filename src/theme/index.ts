@@ -40,5 +40,7 @@ export default {
     Y_GROUP: 26,
     Y_ITEM: 8,
     CARD_OUTER: 12,
+    INPUT_X: 16,
+    INPUT_Y: 13,
   },
 } as const
