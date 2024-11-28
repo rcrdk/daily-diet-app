@@ -1,22 +1,23 @@
-import { Heading } from '@components/Heading'
-import { ActionButtons, Container, Text, Title } from './styles'
+import { Badge } from '@components/Badge'
+import { Button } from '@components/Button'
 import { Content } from '@components/Content'
 import { ContentScrollable } from '@components/ContentScrollable'
+import { Heading } from '@components/Heading'
+import { Label } from '@components/Label'
+import { Loading } from '@components/Loading'
+import type { MealDTO } from '@dtos/MealDTO'
 import {
   useFocusEffect,
   useNavigation,
   useRoute,
 } from '@react-navigation/native'
-import { Button } from '@components/Button'
-import { Label } from '@components/Label'
-import { useCallback, useState } from 'react'
-import { MealDTO } from '@dtos/MealDTO'
-import { Badge } from '@components/Badge'
-import { Alert } from 'react-native'
 import { getMeal } from '@storage/meals/getMeal'
-import { AppError } from '@utils/app-error'
 import { removeMeal } from '@storage/meals/removeMeal'
-import { Loading } from '@components/Loading'
+import { AppError } from '@utils/app-error'
+import { useCallback, useState } from 'react'
+import { Alert } from 'react-native'
+
+import { ActionButtons, Container, Text, Title } from './styles'
 
 type RouteParams = {
   id: string

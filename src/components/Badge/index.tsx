@@ -1,4 +1,5 @@
-import { BadgeStyleThemeColor, Container, Label, Marker } from './styles'
+import type { BadgeStyleThemeColor } from './styles'
+import { Container, Label, Marker } from './styles'
 
 type Props = {
   label: string

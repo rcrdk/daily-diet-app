@@ -1,4 +1,5 @@
-import { MealDTO } from '@dtos/MealDTO'
+import type { Optional } from '@customTypes/optional'
+import type { MealDTO } from '@dtos/MealDTO'
 
 export function isValidMeal(meal: Optional<MealDTO, 'id' | 'onDiet'>) {
   if (meal.name.trim() === '') return false
@@ -12,7 +13,7 @@ export function isValidMeal(meal: Optional<MealDTO, 'id' | 'onDiet'>) {
 
 export function mealAlreadyExists(newMeal: MealDTO, currentMeals: MealDTO[]) {
   const checkIfExists = currentMeals.find(
-    meal => meal.date === newMeal.date && meal.hour === newMeal.hour,
+    (meal) => meal.date === newMeal.date && meal.hour === newMeal.hour,
   )
 
   if (newMeal.id === checkIfExists?.id) {

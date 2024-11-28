@@ -1,13 +1,13 @@
-import { StatusBar } from 'react-native'
-import { ThemeProvider } from 'styled-components/native'
-import defaultTheme from '@theme/index'
+import { Loading } from '@components/Loading'
 import {
   NunitoSans_400Regular,
   NunitoSans_700Bold,
   useFonts,
 } from '@expo-google-fonts/nunito-sans'
-import { Loading } from '@components/Loading'
 import { Routes } from '@routes/index'
+import defaultTheme from '@theme/index'
+import { StatusBar } from 'react-native'
+import { ThemeProvider } from 'styled-components/native'
 
 export default function App() {
   const [fontsLoaded] = useFonts({

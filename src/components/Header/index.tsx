@@ -1,5 +1,6 @@
-import { Container, Image } from './styles'
 import brandImage from '@assets/brand.png'
+
+import { Container, Image } from './styles'
 
 export function Header() {
   return (

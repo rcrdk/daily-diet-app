@@ -1,9 +1,10 @@
+import type { StatsDTO } from '@dtos/StatsDTO'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { Container, Icon, Percentage, Text } from './styles'
-import { Alert } from 'react-native'
-import { useCallback, useState } from 'react'
-import { StatsDTO } from '@dtos/StatsDTO'
 import { getStats } from '@storage/meals/getStats'
+import { useCallback, useState } from 'react'
+import { Alert } from 'react-native'
+
+import { Container, Icon, Percentage, Text } from './styles'
 
 export function DietCardStatus() {
   const [stats, setStats] = useState<StatsDTO>()

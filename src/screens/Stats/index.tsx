@@ -1,23 +1,23 @@
+import { Content } from '@components/Content'
+import { ContentScrollable } from '@components/ContentScrollable'
+import { Percentage } from '@components/DietCardStatus/styles'
+import { StatCard } from '@components/StatCard'
+import type { StatsDTO } from '@dtos/StatsDTO'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { getStats } from '@storage/meals/getStats'
+import { useCallback, useState } from 'react'
+import { Alert } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
 import {
   BackButton,
   BackIcon,
   Container,
   Heading,
-  StatsGrid,
   PercentageText,
+  StatsGrid,
   Title,
 } from './styles'
-
-import { Percentage } from '@components/DietCardStatus/styles'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import { StatCard } from '@components/StatCard'
-import { Content } from '@components/Content'
-import { ContentScrollable } from '@components/ContentScrollable'
-import { Alert } from 'react-native'
-import { useCallback, useState } from 'react'
-import { StatsDTO } from '@dtos/StatsDTO'
-import { getStats } from '@storage/meals/getStats'
 
 export function Stats() {
   const [stats, setStats] = useState<StatsDTO>()

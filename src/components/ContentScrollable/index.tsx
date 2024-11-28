@@ -1,5 +1,6 @@
+import type { ScrollViewProps } from 'react-native'
+
 import { Container } from './styles'
-import { ScrollViewProps } from 'react-native'
 
 type Props = ScrollViewProps
 

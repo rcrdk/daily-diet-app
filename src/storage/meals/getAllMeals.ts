@@ -1,4 +1,4 @@
-import { MealDTO } from '@dtos/MealDTO'
+import type { MealDTO } from '@dtos/MealDTO'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MEALS } from '@storage/config'
 

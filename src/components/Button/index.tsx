@@ -1,6 +1,8 @@
-import { TouchableOpacityProps } from 'react-native'
-import { ButtonStyleMode, Container, Icon, Text } from './styles'
-import { Feather } from '@expo/vector-icons'
+import type { Feather } from '@expo/vector-icons'
+import type { TouchableOpacityProps } from 'react-native'
+
+import type { ButtonStyleMode } from './styles'
+import { Container, Icon, Text } from './styles'
 
 type Props = TouchableOpacityProps & {
   label: string

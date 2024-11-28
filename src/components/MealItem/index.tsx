@@ -1,6 +1,7 @@
-import { MealDTO } from '@dtos/MealDTO'
+import type { MealDTO } from '@dtos/MealDTO'
+import type { TouchableOpacityProps } from 'react-native'
+
 import { Container, Hours, Name, Separator, Status } from './styles'
-import { TouchableOpacityProps } from 'react-native'
 
 type Props = TouchableOpacityProps & {
   meal: MealDTO

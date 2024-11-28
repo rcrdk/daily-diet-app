@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
-import { BackButton, BackIcon, Container, Title } from './styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
+
+import { BackButton, BackIcon, Container, Title } from './styles'
 
 type Props = {
   title: string

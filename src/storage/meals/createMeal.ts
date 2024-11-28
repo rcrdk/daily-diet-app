@@ -1,9 +1,11 @@
-import { MealDTO } from '@dtos/MealDTO'
+import type { Optional } from '@customTypes/optional'
+import type { MealDTO } from '@dtos/MealDTO'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MEALS } from '@storage/config'
 import { AppError } from '@utils/app-error'
 import { isValidMeal, mealAlreadyExists } from '@utils/validate-meal'
 import { uuid } from 'expo-modules-core'
+
 import { getAllMeals } from './getAllMeals'
 
 export async function createMeal(meal: Optional<MealDTO, 'id' | 'onDiet'>) {

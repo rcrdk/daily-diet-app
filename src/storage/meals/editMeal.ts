@@ -1,8 +1,9 @@
-import { MealDTO } from '@dtos/MealDTO'
+import type { MealDTO } from '@dtos/MealDTO'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MEALS } from '@storage/config'
 import { AppError } from '@utils/app-error'
 import { isValidMeal, mealAlreadyExists } from '@utils/validate-meal'
+
 import { getAllMeals } from './getAllMeals'
 
 export async function editMeal(meal: MealDTO) {
@@ -22,7 +23,7 @@ export async function editMeal(meal: MealDTO) {
       )
     }
 
-    const updatedMeal = storedMeals.map(item => {
+    const updatedMeal = storedMeals.map((item) => {
       if (item.id === meal.id) {
         return meal
       }

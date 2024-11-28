@@ -1,4 +1,5 @@
-import { Container, StatCardStyleThemeColor, Text, Title } from './styles'
+import type { StatCardStyleThemeColor } from './styles'
+import { Container, Text, Title } from './styles'
 
 type Props = {
   number: string | number

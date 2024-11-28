@@ -1,12 +1,13 @@
-import { StatsDTO } from '@dtos/StatsDTO'
+import type { StatsDTO } from '@dtos/StatsDTO'
+
 import { getAllMeals } from './getAllMeals'
 
 export async function getStats(): Promise<StatsDTO> {
   const meals = await getAllMeals()
 
   const mealsCount = meals.length
-  const onDietCount = meals.filter(item => !!item.onDiet).length
-  const offDietCount = meals.filter(item => !item.onDiet).length
+  const onDietCount = meals.filter((item) => !!item.onDiet).length
+  const offDietCount = meals.filter((item) => !item.onDiet).length
 
   const calcAverage = Number((onDietCount * 100) / mealsCount)
   const average = `${calcAverage.toFixed(2).replace('.', ',')}%`

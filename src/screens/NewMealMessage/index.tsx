@@ -1,9 +1,9 @@
-import { Container, Image, Strong, Text, Title } from './styles'
-import { useNavigation, useRoute } from '@react-navigation/native'
-import { Button } from '@components/Button'
-
 import onDietImage from '@assets/in.png'
 import outDietImage from '@assets/not.png'
+import { Button } from '@components/Button'
+import { useNavigation, useRoute } from '@react-navigation/native'
+
+import { Container, Image, Strong, Text, Title } from './styles'
 
 type RouteParams = {
   isOnDiet: 'true' | 'false'

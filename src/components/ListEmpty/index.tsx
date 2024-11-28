@@ -1,7 +1,8 @@
-import { useNavigation } from '@react-navigation/native'
-import { Container, Image, Text, Title } from './styles'
-import { Button } from '@components/Button'
 import emptyImage from '@assets/empty.png'
+import { Button } from '@components/Button'
+import { useNavigation } from '@react-navigation/native'
+
+import { Container, Image, Text, Title } from './styles'
 
 export function ListEmpty() {
   const navigation = useNavigation()

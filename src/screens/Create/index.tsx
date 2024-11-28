@@ -1,18 +1,18 @@
-import { Container, DateHourRow, DietOptionsRow } from './styles'
-import { Heading } from '@components/Heading'
 import { Button } from '@components/Button'
-import { useNavigation } from '@react-navigation/native'
-import { useState } from 'react'
 import { Content } from '@components/Content'
-
 import { ContentScrollable } from '@components/ContentScrollable'
-import { Label } from '@components/Label'
+import { DietSwitcher } from '@components/DietSwitcher'
+import { Heading } from '@components/Heading'
 import { Input } from '@components/Input'
 import { InputGroup } from '@components/InputGroup'
-import { DietSwitcher } from '@components/DietSwitcher'
+import { Label } from '@components/Label'
+import { useNavigation } from '@react-navigation/native'
 import { createMeal } from '@storage/meals/createMeal'
 import { AppError } from '@utils/app-error'
+import { useState } from 'react'
 import { Alert } from 'react-native'
+
+import { Container, DateHourRow, DietOptionsRow } from './styles'
 
 export function Create() {
   const [name, setName] = useState('')

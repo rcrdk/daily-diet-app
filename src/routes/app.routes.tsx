@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Details } from '@screens/Details'
-import { Meals } from '@screens/Meals'
 import { Create } from '@screens/Create'
+import { Details } from '@screens/Details'
+import { Edit } from '@screens/Edit'
+import { Meals } from '@screens/Meals'
 import { NewMealMessage } from '@screens/NewMealMessage'
 import { Stats } from '@screens/Stats'
-import { Edit } from '@screens/Edit'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 

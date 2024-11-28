@@ -1,4 +1,5 @@
-import { Container, DietSwitcherStyleThemeColor, Label, Marker } from './styles'
+import type { DietSwitcherStyleThemeColor } from './styles'
+import { Container, Label, Marker } from './styles'
 
 type Props = {
   label: string

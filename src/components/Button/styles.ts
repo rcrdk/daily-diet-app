@@ -1,6 +1,6 @@
+import { Feather } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
 import styled, { css } from 'styled-components/native'
-import { Feather } from '@expo/vector-icons'
 
 export type ButtonStyleMode = 'filled' | 'outline'
 

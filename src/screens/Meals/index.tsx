@@ -1,16 +1,17 @@
-import { Container, ListHeader, Title } from './styles'
-import { Header } from '@components/Header'
-import { DietCardStatus } from '@components/DietCardStatus'
-import { Alert, SectionList } from 'react-native'
-import { useCallback, useState } from 'react'
-import { MealsGroupedDTO } from '@dtos/MealDTO'
-import { MealItem } from '@components/MealItem'
 import { Button } from '@components/Button'
-import { useTheme } from 'styled-components/native'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { DietCardStatus } from '@components/DietCardStatus'
+import { Header } from '@components/Header'
 import { ListEmpty } from '@components/ListEmpty'
-import { getMealsGrouped } from '@storage/meals/getMealsGrouped'
 import { Loading } from '@components/Loading'
+import { MealItem } from '@components/MealItem'
+import type { MealsGroupedDTO } from '@dtos/MealDTO'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { getMealsGrouped } from '@storage/meals/getMealsGrouped'
+import { useCallback, useState } from 'react'
+import { Alert, SectionList } from 'react-native'
+import { useTheme } from 'styled-components/native'
+
+import { Container, ListHeader, Title } from './styles'
 
 export function Meals() {
   const [isLoading, setIsLoading] = useState(true)
@@ -73,7 +74,7 @@ export function Meals() {
 
       <SectionList
         sections={meals}
-        keyExtractor={meal => meal.id}
+        keyExtractor={(meal) => meal.id}
         renderItem={({ item }) => (
           <MealItem
             meal={item}

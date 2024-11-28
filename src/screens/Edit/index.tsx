@@ -1,24 +1,24 @@
-import { Container, DateHourRow, DietOptionsRow } from './styles'
-import { Heading } from '@components/Heading'
 import { Button } from '@components/Button'
+import { Content } from '@components/Content'
+import { ContentScrollable } from '@components/ContentScrollable'
+import { DietSwitcher } from '@components/DietSwitcher'
+import { Heading } from '@components/Heading'
+import { Input } from '@components/Input'
+import { InputGroup } from '@components/InputGroup'
+import { Label } from '@components/Label'
+import { Loading } from '@components/Loading'
 import {
   useFocusEffect,
   useNavigation,
   useRoute,
 } from '@react-navigation/native'
-import { useCallback, useState } from 'react'
-import { Content } from '@components/Content'
-
-import { ContentScrollable } from '@components/ContentScrollable'
-import { Label } from '@components/Label'
-import { Input } from '@components/Input'
-import { InputGroup } from '@components/InputGroup'
-import { DietSwitcher } from '@components/DietSwitcher'
+import { editMeal } from '@storage/meals/editMeal'
 import { getMeal } from '@storage/meals/getMeal'
 import { AppError } from '@utils/app-error'
+import { useCallback, useState } from 'react'
 import { Alert } from 'react-native'
-import { editMeal } from '@storage/meals/editMeal'
-import { Loading } from '@components/Loading'
+
+import { Container, DateHourRow, DietOptionsRow } from './styles'
 
 type RouteParams = {
   id: string

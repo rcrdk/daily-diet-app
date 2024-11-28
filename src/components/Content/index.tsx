@@ -1,4 +1,5 @@
-import { SafeAreaViewProps } from 'react-native-safe-area-context'
+import type { SafeAreaViewProps } from 'react-native-safe-area-context'
+
 import { Container } from './styles'
 
 type Props = SafeAreaViewProps
