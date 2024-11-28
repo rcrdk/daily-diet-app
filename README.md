@@ -1,4 +1,4 @@
-# 🍽️ Daily Diet Tracker App
+# 🍽️ React Native Daily Diet Tracker App
 This is a React Native app created to help users monitor their eating habits. Users can log meals, track their progress. The app was developed as a challenge during my lessons at [Rocketseat](https://rocketseat.com.br/).
 
 ---
